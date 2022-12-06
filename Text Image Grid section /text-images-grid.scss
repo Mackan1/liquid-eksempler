@@ -1,0 +1,138 @@
+/* ------------------------------------------------------------ *\
+  Text Images Grid
+\* ------------------------------------------------------------ */
+
+.text-images-grid {
+  padding: 32px 0;
+
+  @media #{$mq-s} {
+    padding: 96px 0;
+  }
+
+  &[data-style="1"] .text-images-grid__image[data-index="1"],
+  &[data-style="2"] .text-images-grid__image[data-index="3"] {
+    --ratio: 68.38%;
+
+    width: 100%;
+    max-width: 57.8%;
+    margin: 32px auto;
+  }
+
+  &[data-style="1"] .text-images-grid__image[data-index="2"],
+  &[data-style="2"] .text-images-grid__image[data-index="1"] {
+    --ratio: 100%;
+
+    max-width: calc(42.2% - 32px);
+    flex: 0 0 calc(42.2% - 32px);
+    margin-right: 32px;
+  }
+
+  &[data-style="1"] .text-images-grid__image[data-index="3"] {
+    --ratio: 135%;
+
+    max-width: 57.8%;
+    flex: 0 0 57.8%;
+    margin-left: auto;
+  }
+
+  &[data-style="2"] .text-images-grid__image[data-index="2"] {
+    --ratio: 100%;
+
+    max-width: 57.8%;
+    flex: 0 0 57.8%;
+    margin-left: auto;
+  }
+}
+
+.text-images-grid__inner {
+  @media #{$mq-s} {
+    display: flex;
+    align-items: center;
+    margin: 0 -24px;
+
+    .text-images-grid.reverse & {
+      flex-flow: row-reverse wrap;
+    }
+  }
+
+  @media #{$mq-md} {
+    margin: 0;
+  }
+}
+
+.text-images-grid__content,
+.text-images-grid__images {
+  @media #{$mq-s} {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 24px;
+  }
+
+  @media #{$mq-l} {
+    flex: 0 0 570px;
+    max-width: 570px;
+    padding: 0;
+  }
+}
+
+.text-images-grid__images {
+  display: flex;
+  flex-flow: row wrap;
+
+  @media #{$mq-s} {
+    margin-left: auto;
+  }
+
+  .text-images-grid.reverse & {
+    align-items: flex-end;
+
+    @media #{$mq-s} {
+      margin-left: 0;
+      margin-right: auto;
+    }
+  }
+}
+
+.text-images-grid__content {
+  margin-bottom: 48px;
+  text-align: center;
+
+  @media #{$mq-s} {
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  @media #{$mq-l} {
+    margin-left: 116px;
+
+    .text-images-grid.reverse & {
+      margin-left: 0;
+      margin-right: 116px;
+    }
+  }
+}
+
+.text-images-grid__description {
+  margin-bottom: 24px;
+
+  @media #{$mq-s} {
+    margin-bottom: 32px;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.text-images-grid__title {
+  margin-bottom: 32px;
+  font-size: 32px;
+  line-height: 1.25;
+  letter-spacing: 1.6px;
+
+  @media #{$mq-s} {
+    font-size: 72px;
+    line-height: 1.125;
+    letter-spacing: 2.88px;
+  }
+}

@@ -1,0 +1,85 @@
+/* ------------------------------------------------------------ *\
+  Sunglasses Intro
+\* ------------------------------------------------------------ */
+
+.sunglasses-intro {
+  text-align: center;
+
+  @media #{$mq-s} {
+    background: $c-neutral-lighter;
+  }
+}
+
+.sunglasses-intro__inner {
+  background: $c-neutral-lighter;
+  padding: 28px 40px 32px;
+
+  @media #{$mq-s} {
+    background: none;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 56px 0 32px;
+  }
+}
+
+.sunglasses-intro__usps {
+  ul {
+    @media #{$mq-s} {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      margin: 0 -45px;
+    }
+  }
+
+  li {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    @media #{$mq-s} {
+      flex: 1 1;
+      max-width: 33.33%;
+      padding: 0 45px;
+    }
+  }
+
+  span {
+    margin-right: 24px;
+    width: 24px;
+
+    @media #{$mq-s} {
+      width: 48px;
+      margin-right: 18px;
+    }
+  }
+}
+
+.sunglasses-intro__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $c-white;
+  padding: 30px 32px 40px;
+  margin: 0 -8px;
+
+  @media #{$mq-s} {
+    background: none;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: stretch;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 32px 72px;
+  }
+
+  .btn {
+    min-width: 210px;
+    margin-bottom: 8px;
+
+    @media #{$mq-s} {
+      min-width: 220px;
+      margin: 0 8px;
+    }
+  }
+}

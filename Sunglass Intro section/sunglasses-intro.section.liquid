@@ -1,0 +1,147 @@
+<div class="sunglasses-intro">
+  <div class="sunglasses-intro__inner">
+
+  {% if section.settings.eyebrow != blank %}
+    <p class="sunglasses-intro__eyebrow h5 mb1 uppercase">
+      {{- section.settings.eyebrow -}}
+    </p><!-- /.sunglasses-intro__eyebrow h5 -->
+  {% endif %}
+
+  {% if section.settings.title != blank %}
+    <h2 class="h1 sunglasses-intro__title mb1 stroke-text uppercase">
+      {% assign _title = section.settings.title %}
+
+      {% render 'replace-p-for-span', mod_text: _title %}
+    </h2><!-- /.h1 sunglasses-intro__title -->
+  {% endif %}
+
+  {% if section.settings.text != blank %}
+    <p class="sunglasses-intro__description mb1">
+      {{- section.settings.text | newline_to_br -}}
+    </p>
+  {% endif %}
+
+    {% assign usps = section.blocks | where: 'type', 'usp' %}
+    {% assign buttons = section.blocks | where: 'type', 'button' %}
+
+    {% if usps.size > 0 %}
+      <div class="sunglasses-intro__usps">
+        <ul>
+          {% for usp in usps %}
+            {% if usp.settings.icon != blank or usp.settings.text != blank %}
+              <li>
+                {% if usp.settings.icon != blank %}
+                  <span class="mr05">
+                    <img src="{{- usp.settings.icon | img_url: '48x' -}}" alt="{{- usp.settings.icon.alt -}}" width="48" height="48" style="height:auto">
+                  </span>
+                {% endif %}
+
+                {% if usp.settings.text != blank %}
+                  <p class="h5 uppercase">{{- usp.settings.text -}}</p>
+                {% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div><!-- /.sunglasses-intro__usps -->
+    {% endif %}
+  </div><!-- /.sunglasses-intro__inner -->
+
+  {% if buttons.size > 0 %}
+    <div class="sunglasses-intro__actions">
+      {% for button in buttons %}
+        {% if button.settings.button_text != blank and button.settings.button_url != blank %}
+          {% capture button_style %}style="background-color: {{ button.settings.button_background_color }}; color: {{ button.settings.button_text_color }};"{% endcapture %}
+
+          {% assign first_character = button.settings.button_url | slice: 0, 1 %}
+
+          {% if first_character == '#' %}
+            {% assign button_style = button_style | append: 'data-module="scroll-to-target"' %}
+          {% endif %}
+
+          {% render 'button',
+          mod_type: 'link',
+          mod_value: button.settings.button_text,
+          mod_href: button.settings.button_url,
+          mod_class: 'btn--rounded-100'
+          mod_attr: button_style %}
+        {% endif %}
+      {% endfor %}
+    </div><!-- /.sunglasses-intro__actions -->
+  {% endif %}
+</div><!-- /.sunglasses-intro -->
+
+{% schema %}
+{
+  "name": "Sunglasses Intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Text"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "URL",
+          "info": "You can add a hook here which links to a specific hero (or other) section, where that hook is defined. For example: \"#meet-bornholm\""
+        },
+        {
+          "type": "color",
+          "id": "button_background_color",
+          "label": "Button background color",
+          "default": "#2e3b47"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text color",
+          "default": "#fff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sunglasses Intro"
+    }
+  ]
+}
+{% endschema %}

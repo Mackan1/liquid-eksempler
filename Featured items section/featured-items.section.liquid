@@ -1,0 +1,219 @@
+<div class="featured-items" style="background-color: {{ section.settings.background_color }};">
+  <div class="container">
+    <div class="featured-items__head">
+      {% if section.settings.eyebrow != blank %}
+        <div class="featured-items__eyebrow stroke-text uppercase">
+          {% render 'parse-shortcodes', mod_text: section.settings.eyebrow %}
+        </div><!-- / -->
+      {% endif %}
+
+      {% if section.settings.title != blank %}
+        <h2 class="h2 featured-item__title uppercase mb15">
+          {%- capture text -%}{% render 'replace-p-for-span', mod_text: section.settings.title %}{%- endcapture -%}
+
+          {% render 'parse-shortcodes', mod_text: text %}
+        </h2><!-- / -->
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {% if block.settings.title == blank %}
+            {% continue %}
+          {% endif %}
+
+          {% assign mod_content = '' %}
+
+          {% capture nav_items %}
+            {{ nav_items }}
+
+            <li class="js-tab-trigger {% if forloop.first %}is-active{% endif %}" data-tab-id="tab-{{- section.id -}}-{{- block.settings.title | handle -}}">
+              <button type="button">{{- block.settings.title -}}</button>
+            </li>
+          {% endcapture %}
+
+          {% capture tabs %}
+            {{ tabs }}
+
+            <div id="tab-{{- section.id -}}-{{- block.settings.title | handle -}}" class="tab {% if forloop.first %}is-active{% endif %}">
+              {% for i in (1..3) %}
+                {% assign title_key = 'title_' | append: i %}
+                {% assign image_key = 'image_' | append: i %}
+                {% assign button_text_key = 'button_text_' | append: i %}
+                {% assign button_url_key = 'button_url_' | append: i %}
+
+                {% assign _title = block.settings[title_key] %}
+                {% assign _image = block.settings[image_key] %}
+                {% assign _button_text = block.settings[button_text_key] %}
+                {% assign _button_url = block.settings[button_url_key] %}
+
+                {% unless _image != blank %}
+                  {% continue %}
+                {% endunless %}
+
+                {% capture mod_content %}
+                  {{ mod_content }}
+
+                  <div class="slider-gallery__slide">
+                    {% render 'card',
+                      mod_title: _title,
+                      mod_image: _image,
+                      mod_button_text: _button_text,
+                      mod_button_url: _button_url %}
+                  </div><!-- /.slider-gallery__slide -->
+                {% endcapture %}
+              {% endfor %}
+
+              {% render 'slider-gallery',
+                mod_content: mod_content,
+                mod_watch_css: true,
+                mod_dots: true,
+                mod_arrows: false,
+                mod_fullscreen: false
+              %}
+            </div><!-- /.tab -->
+          {% endcapture %}
+        {% endfor %}
+
+        {% if section.blocks.size > 1 %}
+          <nav class="featured-items__nav elastic-tabs" data-module="elastic-tabs">
+            <span class="elastic-tabs__selector js-tab-selector"></span><!-- /.selector -->
+            <ul>
+              {{ nav_items }}
+            </ul>
+          </nav><!-- /.elastic-tabs -->
+        {% endif %}
+      {% endif %}
+    </div><!-- /.featured-items__head -->
+
+    {% if section.blocks.size > 0 %}
+      <div class="featured-items__body">
+        <div class="tabs">
+          {{ tabs }}
+        </div><!-- /.tabs -->
+      </div><!-- /.featured-items__body -->
+    {% endif %}
+  </div><!-- /.container -->
+</div><!-- /.featured-items -->
+
+{% schema %}
+{
+  "name": "Featured Items",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Color"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "header",
+          "content": "Item - 1"
+        },
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "button_text_1",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "button_url_1",
+          "label": "Button URL"
+        },
+        {
+          "type": "header",
+          "content": "Item - 2"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "button_text_2",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "button_url_2",
+          "label": "Button URL"
+        },
+        {
+          "type": "header",
+          "content": "Item - 3"
+        },
+        {
+          "type": "text",
+          "id": "title_3",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "button_text_3",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "button_url_3",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Items",
+      "category": "Sections"
+    }
+  ]
+}
+{% endschema %}
