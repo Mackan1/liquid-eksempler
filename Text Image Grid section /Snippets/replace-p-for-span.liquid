@@ -1,0 +1,6 @@
+{%- assign mod_text = mod_text | default: false -%}
+{%- if mod_text -%}
+  {%- capture output -%}{{- mod_text | replace: '<p>', '<span class="block">' | replace: '</p>', '</span>' -}}{%- endcapture -%}
+  {{- output -}}
+{%- endif -%}
+

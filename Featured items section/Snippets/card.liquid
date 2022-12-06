@@ -1,0 +1,34 @@
+{% assign mod_title = mod_title | default: false %}
+{% assign mod_image = mod_image | default: false %}
+{% assign mod_button_text = mod_button_text | default: false %}
+{% assign mod_button_url = mod_button_url | default: false %}
+
+<div class="card">
+  {% if mod_image %}
+    <div class="card__media">
+      <div class="square" style="position: relative">
+        {% assign image_src = mod_image | img_url: '900x' %}
+        <img src="{{ mod_image | img_url: '500x' }}" alt="" loading="lazy" width="{{ mod_image.width }}" height="{{ mod_image.height }}" style="height:auto">
+      </div><!-- /.ratio square -->
+    </div><!-- /.card__media -->
+  {% endif %}
+
+  {% if mod_title or mod_button_text %}
+    <div class="card__content">
+      {% if mod_title %}
+        <h3 class="card__title h4 mb1 uppercase">
+          {{- mod_title -}}
+        </h3><!-- /.card__title -->
+      {% endif %}
+
+      {% if mod_button_text and mod_button_url %}
+        {% render 'button',
+          mod_type: 'link',
+          mod_value: mod_button_text,
+          mod_href: mod_button_url,
+          mod_class: 'btn--rounded-100 btn--outlined' %}
+      {% endif %}
+    </div><!-- /.card__content -->
+  {% endif %}
+</div><!-- /.card -->
+

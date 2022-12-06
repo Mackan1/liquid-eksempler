@@ -1,0 +1,49 @@
+{% assign mod_dots = mod_dots | default: false %}
+{% assign mod_watch_css = mod_watch_css | default: false %}
+{% assign mod_arrows = mod_arrows | default: false %}
+{% assign mod_fullscreen = mod_fullscreen | default: true %}
+{% assign mod_content = mod_content | default: blank %}
+
+<div class="slider-gallery" data-module="slider-gallery" data-watch-css="{{- mod_watch_css | json -}}" data-dots="{{- mod_dots | json -}}" data-arrows="{{- mod_arrows | json -}}" data-fullscreen="{{- mod_fullscreen -}}">
+  <div class="slider-gallery__slides js-slider">
+    {% if mod_content != blank %}
+        {{ mod_content }}
+    {% endif %}
+  </div><!-- /.slider-gallery__slides -->
+
+  <template id="slide-gallery">
+    <div class="slider-gallery__slide bg-neutral-lighter">
+      <div class="slider-gallery__slide-inner">
+        <div class="ratio square">
+          <img src="" alt="">
+          <button
+            class="flickity-button flickity-fullscreen-button flickity-fullscreen-button-view"
+            type="button"
+            aria-label="View full-screen"
+            title="View full-screen"
+            js-product="fullscreenToggle"
+            data-image=""
+          >
+            <svg class="flickity-button-icon" viewBox="0 0 32 32">
+              <path d="M5 12H3v9h9v-2H5v-7zm7-7h7v7h2V3h-9v2z"></path>
+            </svg>
+        </button>
+        </div><!-- /.ratio square -->
+      </div><!-- /.slider-gallery__slide-inner -->
+    </div><!-- /.slider-gallery__slide -->
+    <div class="slider-gallery__slide bg-neutral-lighter">
+      <div class="slider-gallery__slide-inner">
+        <div class="ratio square">
+          <div class="video">
+            <video playsinline="playsinline" autoplay="autoplay" loop="loop" preload="none" muted="muted" poster="" aria-label="">
+              <source src="" type="application/x-mpegURL">
+              <source src="" type="video/mp4">
+              <img alt="" src="">
+          </video>
+          </div>
+        </div><!-- /.ratio square -->
+      </div><!-- /.slider-gallery__slide-inner -->
+    </div><!-- /.slider-gallery__slide -->
+  </template>
+
+</div><!-- /.slider-gallery -->
